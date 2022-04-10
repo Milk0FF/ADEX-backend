@@ -24,6 +24,8 @@ class CreateUserInfosTable extends Migration
             $table->date('birth_date');
             $table->date('register_date');
             $table->float('rating');
+            $table->integer('employment_type_id');
+            $table->integer('media_id');
             $table->timestamps();
         });
     }
