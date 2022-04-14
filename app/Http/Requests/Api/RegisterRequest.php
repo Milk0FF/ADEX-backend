@@ -22,7 +22,7 @@ class RegisterRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'message' => 'Validation errors',
             'data'    => $validator->errors(),
-        ], 401));
+        ], 400));
     }
     /**
      * Get the validation rules that apply to the request.
