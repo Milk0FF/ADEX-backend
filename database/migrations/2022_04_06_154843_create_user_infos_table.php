@@ -18,7 +18,7 @@ class CreateUserInfosTable extends Migration
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
             $table->text('about')->nullable();
-            $table->integer('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->string('living_place')->nullable();
             $table->date('birth_date')->nullable();
             $table->float('rating')->default(0);
