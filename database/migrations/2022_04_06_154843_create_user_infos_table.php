@@ -21,7 +21,6 @@ class CreateUserInfosTable extends Migration
             $table->integer('phone')->nullable();
             $table->string('living_place')->nullable();
             $table->date('birth_date')->nullable();
-            $table->date('register_date');
             $table->float('rating')->default(0);
             $table->integer('employment_type_id')->nullable();
             $table->integer('media_id')->nullable();
