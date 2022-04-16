@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\RegisterRequest;
 use App\Models\User;
 use App\Models\UserInfo;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -14,7 +15,7 @@ class RegisterController extends Controller
         $data = $request->all();
         $user = User::create([
             'email' => $data['email'],
-            'password' => bcrypt($data['password'])
+            'password' => Hash::make($data['password'])
         ]);
         $userInfo = UserInfo::create();
         $user->user_info_id = $userInfo->id;
