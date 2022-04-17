@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    // public function getUserInfo()
-    // {
-
-    // }
+    public function getUserInfo(Request $request)
+    {
+        $user = $request->user();
+        $user->userInfo();
+    }
 }

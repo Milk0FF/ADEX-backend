@@ -18,6 +18,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password'])
         ]);
         $userInfo = UserInfo::create();
+        $user->nickname = 'userreg' . $user->id;
         $user->user_info_id = $userInfo->id;
         $user->save();
         return $this->success(null, 201);

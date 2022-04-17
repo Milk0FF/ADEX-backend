@@ -10,7 +10,8 @@ class Review extends Model
     use HasFactory;
     protected $fillable = [
         'comment',
-        'score',
+        'score_type_id',
+        'task_id',
         'customer_id',
         'executor_id',
     ];
@@ -21,5 +22,13 @@ class Review extends Model
     public function customer()
     {
         return $this->belongsTo(User::class, 'customer_id');
+    }
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+    public function scoreType()
+    {
+        return $this->belongsTo(ScoreType::class);
     }
 }

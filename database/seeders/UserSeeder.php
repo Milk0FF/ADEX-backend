@@ -19,13 +19,13 @@ class UserSeeder extends Seeder
     {
         $data = [
             'executor' => [
-                'email' => 'executor@executor.ru', 'password' => Hash::make('123'), 'user_type_id' => 1
+                'nickname' => 'userreg1', 'email' => 'executor@executor.ru', 'password' => Hash::make('123'), 'user_type_id' => 1
             ],
             'executorInfo' => [
                 'firstName' => 'Иван', 'lastname' => 'Исполнитель', 'about' => 'Я лучший исполнитель!', 'phone' => '79549214567', 'living_place' => 'Самара', 'birth_date' => new DateTime(), 'rating' => 2.00, 'employment_type_id' => 1
             ],
             'customer' => [
-                'email' => 'customer@customer.ru', 'password' => Hash::make('123'), 'user_type_id' => 2
+                'nickname' => 'userreg2', 'email' => 'customer@customer.ru', 'password' => Hash::make('123'), 'user_type_id' => 2
             ],
             'customerInfo' => [
                 'firstName' => 'Владимир', 'lastname' => 'Заказчик', 'about' => 'Я лучший заказчик!', 'phone' => '79879659493', 'living_place' => 'Самара', 'birth_date' => new DateTime(), 'rating' => 4.00, 'employment_type_id' => 1 ,
