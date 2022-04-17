@@ -11,4 +11,7 @@ class MediaType extends Model
     protected $fillable = [
         'name',
     ];
+    public function medias(){
+        return $this->hasMany(Media::class);
+    }
 }

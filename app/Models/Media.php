@@ -11,6 +11,12 @@ class Media extends Model
 
     protected $fillable = [
         'url',
-        'type_media_id',
+        'media_type_id',
     ];
+    public function userInfo(){
+        return $this->hasOne(UserInfo::class);
+    }
+    public function mediaType(){
+        return $this->belongsTo(MediaType::class);
+    }
 }

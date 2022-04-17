@@ -17,4 +17,24 @@ class Task extends Model
         'customer_id',
         'task_status_id',
     ];
+    public function executor()
+    {
+        return $this->belongsTo(User::class, 'executor_id');
+    }
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'customer_id');
+    }
+    public function status()
+    {
+        return $this->belongsTo(TaskStatus::class);
+    }
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
+    public function categoryWorks()
+    {
+        return $this->belongsToMany(CategoryWork::class);
+    }
 }

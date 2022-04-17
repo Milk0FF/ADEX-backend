@@ -20,4 +20,13 @@ class UserInfo extends Model
         'employment_type_id',
         'media_id',
     ];
+    public function user(){
+        return $this->hasOne(User::class);
+    }
+    public function avatar(){
+        return $this->belongsTo(Media::class);
+    }
+    public function employmentType(){
+        return $this->belongsTo(EmploymentType::class);
+    }
 }

@@ -14,4 +14,12 @@ class Review extends Model
         'customer_id',
         'executor_id',
     ];
+    public function executor()
+    {
+        return $this->belongsTo(User::class, 'executor_id');
+    }
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'customer_id');
+    }
 }

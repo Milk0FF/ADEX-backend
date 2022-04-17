@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserCategoryWorkTable extends Migration
+class CreateCategoryWorkTaskTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateUserCategoryWorkTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_category_work', function (Blueprint $table) {
+        Schema::create('category_work_task', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('task_id');
             $table->integer('category_work_id');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateUserCategoryWorkTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_category_work');
+        Schema::dropIfExists('category_work_task');
     }
 }
