@@ -15,10 +15,11 @@ class RegisterController extends Controller
         $data = $request->all();
         $user = User::create([
             'email' => $data['email'],
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
+            'user_type_id' => $data['user_type']
         ]);
         $userInfo = UserInfo::create();
-        $user->nickname = 'userreg' . $user->id;
+        $user->username = 'userreg' . $user->id;
         $user->user_info_id = $userInfo->id;
         $user->save();
         return $this->success(null, 201);

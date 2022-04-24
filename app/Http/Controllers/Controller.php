@@ -17,7 +17,7 @@ class Controller extends BaseController
     {
         return response()->json($data, $status_code);
     }
-    public function error($message = [], $status_code = 500): JsonResponse
+    public function error($message = '', $status_code = 500): JsonResponse
     {
         !is_array($message) ? $message = [$message] : null;
         return response()->json([

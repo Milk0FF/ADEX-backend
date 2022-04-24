@@ -24,7 +24,7 @@ class UserInfo extends Model
         return $this->hasOne(User::class);
     }
     public function avatar(){
-        return $this->belongsTo(Media::class);
+        return $this->belongsTo(Media::class, 'media_id');
     }
     public function employmentType(){
         return $this->belongsTo(EmploymentType::class);

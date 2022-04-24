@@ -22,21 +22,22 @@ class UserInfoResource extends JsonResource
         $successReviews = null;
         $failedReviews = null;
         if($user->user_type_id === 1){
-            $successReviews = Review::where('executor_id', $user->id)->where('score_type_id', 1)->get()->count();
-            $failedReviews = Review::where('executor_id', $user->id)->where('score_type_id', 2)->get()->count();
+            $successReviews = Review::where('executor_id', $user->id)->where('author_id', '!=', $user->id)->where('score_type_id', 1)->get()->count();
+            $failedReviews = Review::where('executor_id', $user->id)->where('author_id', '!=', $user->id)->where('score_type_id', 2)->get()->count();
         }
         else{
-            $successReviews = Review::where('customer_id', $user->id)->where('score_type_id', 1)->get()->count();
-            $failedReviews = Review::where('customer_id', $user->id)->where('score_type_id', 2)->get()->count();
+            $successReviews = Review::where('customer_id', $user->id)->where('author_id', '!=', $user->id)->where('score_type_id', 1)->get()->count();
+            $failedReviews = Review::where('customer_id', $user->id)->where('author_id', '!=', $user->id)->where('score_type_id', 2)->get()->count();
         }
         return [
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
             'about' => $this->about,
             'phone' => $this->phone,
-            'living_place' => $this->living_place,
+            'city' => $this->city,
+            'country' => $this->country,
             'rating' => $this->rating,
-            'employment_type' => $this->employmentType->name,
+            'employment_type' => $this->employmentType ? $this->employmentType->name : null,
             'avatar' => $avatar,
             'success_reviews' => $successReviews,
             'failed_reviews' => $failedReviews,

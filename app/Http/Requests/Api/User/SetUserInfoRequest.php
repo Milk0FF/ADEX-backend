@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class RegisterRequest extends FormRequest
+class SetUserInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,10 +32,14 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users',
-            'password'  => 'required',
-            'repeat_password'  => 'required|same:password',
-            'user_type' => 'required|integer', //1 - исполнитель, 2 - заказчик, 3 - админ ( не должно быть доступа )
+            'firstname' => 'nullable|string',
+            'lastname' => 'nullable|string',
+            'about' => 'nullable|string',
+            'phone' => 'nullable|integer',
+            'city' => 'nullable|string',
+            'country' => 'nullable|string',
+            'birth_date' => 'nullable|date',
+            'employment_type' => 'nullable|integer', //1 - свободен, 2 - занят
         ];
     }
 }

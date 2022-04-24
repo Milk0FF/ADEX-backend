@@ -20,11 +20,12 @@ class LoginController extends Controller
         $token = $user->createToken('auth')->plainTextToken;
         return $this->success([
             'token' => $token,
+            'user_type' => $user->user_type_id,
         ]);
     }
     public function logout(Request $request){
         $authUser = $request->user();
         $authUser->tokens()->delete();
-        return $this->success([], 204);
+        return $this->success('', 204);
     }
 }

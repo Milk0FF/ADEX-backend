@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\RegisterController;
@@ -20,6 +19,9 @@ Route::post('/user/login', [LoginController::class, 'doLogin']);
 Route::post('/user/register', [RegisterController::class, 'doRegister']);
 
 Route::middleware('auth:sanctum')->group(function (){
-    Route::post('/user/logout', [LoginController::class, 'logout']);
     Route::get('/user', [UserController::class, 'getUserInfo']);
+    Route::put('/user', [UserController::class, 'setUserInfo']);
+    Route::delete('/user', [UserController::class, 'deleteUser']);
+    Route::post('/user/logout', [LoginController::class, 'logout']);
+    Route::post('/user/avatar', [UserController::class, 'changeAvatar']);
 });

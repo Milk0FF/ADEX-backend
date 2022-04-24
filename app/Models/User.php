@@ -50,13 +50,17 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserType::class);
     }
-    public function executorReviews()
+    public function aboutExecutorReviews()
     {
         return $this->hasMany(Review::class, 'executor_id');
     }
-    public function customerReviews()
+    public function aboutCustomerReviews()
     {
         return $this->hasMany(Review::class, 'customer_id');
+    }
+    public function ownerReviews()
+    {
+        return $this->hasMany(Review::class, 'author_id');
     }
     public function executorTasks()
     {

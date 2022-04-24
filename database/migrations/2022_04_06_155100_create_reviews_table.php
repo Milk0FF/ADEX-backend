@@ -18,6 +18,7 @@ class CreateReviewsTable extends Migration
             $table->text('comment');
             $table->integer('score_type_id');
             $table->integer('task_id');
+            $table->integer('author_id');
             $table->integer('customer_id');
             $table->integer('executor_id');
             $table->timestamps();

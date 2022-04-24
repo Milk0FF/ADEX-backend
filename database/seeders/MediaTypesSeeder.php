@@ -8,8 +8,8 @@ use Illuminate\Database\Seeder;
 class MediaTypesSeeder extends Seeder
 {
     private $mediaTypes = [
-        ['name' => 'Видео'],
         ['name' => 'Фото'],
+        ['name' => 'Видео'],
         ['name' => 'Документ'],
     ];
     /**

@@ -19,16 +19,16 @@ class UserSeeder extends Seeder
     {
         $data = [
             'executor' => [
-                'nickname' => 'userreg1', 'email' => 'executor@executor.ru', 'password' => Hash::make('123'), 'user_type_id' => 1
+                'username' => 'userreg1', 'email' => 'executor@executor.ru', 'password' => Hash::make('123'), 'user_type_id' => 1
             ],
             'executorInfo' => [
-                'firstName' => 'Иван', 'lastname' => 'Исполнитель', 'about' => 'Я лучший исполнитель!', 'phone' => '79549214567', 'living_place' => 'Самара', 'birth_date' => new DateTime(), 'rating' => 2.00, 'employment_type_id' => 1
+                'firstName' => 'Иван', 'lastname' => 'Исполнитель', 'about' => 'Я лучший исполнитель!', 'phone' => '79549214567', 'city' => 'Самара', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 2.00, 'employment_type_id' => 1
             ],
             'customer' => [
-                'nickname' => 'userreg2', 'email' => 'customer@customer.ru', 'password' => Hash::make('123'), 'user_type_id' => 2
+                'username' => 'userreg2', 'email' => 'customer@customer.ru', 'password' => Hash::make('123'), 'user_type_id' => 2
             ],
             'customerInfo' => [
-                'firstName' => 'Владимир', 'lastname' => 'Заказчик', 'about' => 'Я лучший заказчик!', 'phone' => '79879659493', 'living_place' => 'Самара', 'birth_date' => new DateTime(), 'rating' => 4.00, 'employment_type_id' => 1 ,
+                'firstName' => 'Владимир', 'lastname' => 'Заказчик', 'about' => 'Я лучший заказчик!', 'phone' => '79879659493', 'city' => 'Самара', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 4.00, 'employment_type_id' => 1 ,
             ],
         ];
 
