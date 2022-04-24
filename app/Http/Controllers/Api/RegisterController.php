@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
+    //Регистрация пользователя
     public function doRegister(RegisterRequest $request)
     {
         $data = $request->all();

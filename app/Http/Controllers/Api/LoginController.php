@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    //Авторизация пользователя
     public function doLogin(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
@@ -23,6 +24,7 @@ class LoginController extends Controller
             'user_type' => $user->user_type_id,
         ]);
     }
+    //Выход из системы пользователя
     public function logout(Request $request){
         $authUser = $request->user();
         $authUser->tokens()->delete();

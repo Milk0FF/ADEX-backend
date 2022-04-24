@@ -18,11 +18,13 @@ class UserController extends Controller
     {
         $this->mediaService = new MediaService();
     }
+    //Получение личной информации пользователя
     public function getUserInfo(Request $request)
     {
         $user = $request->user();
         return $this->success(new UserInfoResource($user->userInfo));
     }
+    //Изменение личной информации пользователя
     public function setUserInfo(SetUserInfoRequest $request)
     {
         $user = $request->user();
@@ -34,6 +36,7 @@ class UserController extends Controller
         UserInfo::where('id', $user->id)->update($data);
         return $this->success($data);
     }
+    //Удаление пользователя
     public function deleteUser(Request $request)
     {
         $user = $request->user();
@@ -41,6 +44,7 @@ class UserController extends Controller
         $user->delete();
         $userInfo->delete();
     }
+    //Изменение аватара пользователя
     public function changeAvatar(ChangeAvatarRequest $request)
     {
         $user = $request->user();

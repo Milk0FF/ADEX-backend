@@ -38,7 +38,7 @@ class UserInfoResource extends JsonResource
             'country' => $this->country,
             'rating' => $this->rating,
             'employment_type' => $this->employmentType ? $this->employmentType->name : null,
-            'avatar' => $avatar,
+            'avatar' => url($avatar),
             'success_reviews' => $successReviews,
             'failed_reviews' => $failedReviews,
         ];
