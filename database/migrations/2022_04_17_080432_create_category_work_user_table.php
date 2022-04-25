@@ -16,7 +16,7 @@ class CreateCategoryWorkUserTable extends Migration
         Schema::create('category_work_user', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('category_work_id');
+            $table->integer('category_work_id')->unsigned();
             $table->timestamps();
         });
     }

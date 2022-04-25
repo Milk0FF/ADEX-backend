@@ -16,7 +16,7 @@ class CreateCategoryWorkTaskTable extends Migration
         Schema::create('category_work_task', function (Blueprint $table) {
             $table->id();
             $table->integer('task_id');
-            $table->integer('category_work_id');
+            $table->integer('category_work_id')->unsigned();
             $table->timestamps();
         });
     }

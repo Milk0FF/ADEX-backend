@@ -16,11 +16,11 @@ class CreateReviewsTable extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->text('comment');
-            $table->integer('score_type_id');
-            $table->integer('task_id');
-            $table->integer('author_id');
-            $table->integer('customer_id');
-            $table->integer('executor_id');
+            $table->integer('score_type_id')->unsigned();
+            $table->integer('task_id')->unsigned();
+            $table->integer('author_id')->unsigned();
+            $table->integer('customer_id')->unsigned();
+            $table->integer('executor_id')->unsigned();
             $table->timestamps();
         });
     }

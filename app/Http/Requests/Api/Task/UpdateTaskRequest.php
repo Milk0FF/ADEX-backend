@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api\User;
+namespace App\Http\Requests\Api\Task;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class ChangeAvatarRequest extends FormRequest
+class UpdateTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,7 +32,11 @@ class ChangeAvatarRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image',
+            'name' => 'nullable',
+            'price' => 'nullable|numeric',
+            'description' => 'nullable',
+            'categories' => 'nullable|array',
+            'categories.*' => 'integer',
         ];
     }
 }

@@ -23,8 +23,8 @@ class CreateUserInfosTable extends Migration
             $table->string('country')->nullable();
             $table->date('birth_date')->nullable();
             $table->float('rating')->default(0);
-            $table->integer('employment_type_id')->nullable();
-            $table->integer('media_id')->nullable();
+            $table->integer('employment_type_id')->unsigned()->nullable();
+            $table->integer('media_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
