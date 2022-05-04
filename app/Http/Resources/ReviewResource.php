@@ -15,9 +15,13 @@ class ReviewResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'comment' => $this->comment,
-            'score'  => $this->scoreType()->name,
-            'task'  => new TaskResource($this->task()),
+            'id'            => $this->id,
+            'comment'       => $this->comment,
+            'score'         => $this->scoreType->name,
+            'task'          => new TaskResource($this->task),
+            'customer'      => new UserResource($this->customer),
+            'executor'      => new UserResource($this->executor),
+            'created_at'    => $this->created_at,
         ];
     }
 }

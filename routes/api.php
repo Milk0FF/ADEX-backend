@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\RegisterController;
@@ -32,4 +33,12 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::delete('/task/{id}', [TaskController::class, 'deleteTask']);
     Route::post('/task/{id}/executor', [TaskController::class, 'setExecutor']);
     Route::post('/task/{id}/views', [TaskController::class, 'incrementViews']);
+    Route::get('/task/{id}/chats', [ChatController::class, 'getChatsByTask']);
+
+    Route::get('/chats', [ChatController::class, 'getChats']);
+    Route::post('/chat', [ChatController::class, 'createChat']);
+    Route::post('/chat/{id}/message', [ChatController::class, 'createMessage']);
+    Route::put('/chat/{chatId}/message/{messageId}', [ChatController::class, 'updateMessage']);
+    Route::delete('/chat/{chatId}/message/{messageId}', [ChatController::class, 'deleteMessage']);
+    Route::get('/chat/{id}', [ChatController::class, 'getChatMessages']);
 });

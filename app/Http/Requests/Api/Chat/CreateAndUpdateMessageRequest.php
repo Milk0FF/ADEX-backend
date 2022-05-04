@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api\Task;
+namespace App\Http\Requests\Api\Chat;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class SetExecutorRequest extends FormRequest
+class CreateAndUpdateMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,7 +33,7 @@ class SetExecutorRequest extends FormRequest
     public function rules()
     {
         return [
-            'executor_id' => 'required|integer|exists:users,id',
+            'text'  => 'required|string',
         ];
     }
 }

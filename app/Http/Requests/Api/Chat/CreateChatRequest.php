@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Api\Chat;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class CreateChatRequest extends FormRequest
 {
@@ -13,7 +15,14 @@ class CreateChatRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    public function failedValidation(Validator $validator){
+        throw new HttpResponseException(response()->json([
+            'message' => 'Validation errors',
+            'data'    => $validator->errors(),
+        ], 400));
     }
 
     /**
@@ -24,7 +33,9 @@ class CreateChatRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'customer_id'   => 'required|integer|exists:users,id',
+            'task_id'       => 'required|integer|exists:tasks,id',
+            'text'          => 'required|string',
         ];
     }
 }
