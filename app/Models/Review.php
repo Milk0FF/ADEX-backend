@@ -12,6 +12,7 @@ class Review extends Model
         'comment',
         'score_type_id',
         'task_id',
+        'author_id',
         'customer_id',
         'executor_id',
     ];
@@ -22,6 +23,10 @@ class Review extends Model
     public function customer()
     {
         return $this->belongsTo(User::class, 'customer_id');
+    }
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
     }
     public function task()
     {

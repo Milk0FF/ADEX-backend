@@ -13,6 +13,7 @@ class TaskStatusesSeeder extends Seeder
         ['name' => 'Исполнитель выбран'],
         ['name' => 'В процессе выполнения'],
         ['name' => 'Выполнено'],
+        ['name' => 'Не выполнено'],
     ];
     /**
      * Run the database seeds.

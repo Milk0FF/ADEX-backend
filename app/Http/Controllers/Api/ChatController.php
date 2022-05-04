@@ -28,7 +28,7 @@ class ChatController extends Controller
 
         return $this->success('', 204);
     }
-    //Добавление сообщения по чату пользователя
+    //Добавление сообщения в чат пользователя
     public function createMessage(CreateAndUpdateMessageRequest $request, int $chatId)
     {
         $user = $request->user();
@@ -45,6 +45,7 @@ class ChatController extends Controller
         return $this->success(new MessageResource($message));
     }
 
+    //Изменение сообщения из чата пользователя
     public function updateMessage(CreateAndUpdateMessageRequest $request, int $chatId, int $messageId)
     {
         $chat = Chat::find($chatId);
@@ -65,6 +66,7 @@ class ChatController extends Controller
         return $this->success('', 204);
     }
 
+    //Удаление сообщения из чата пользователя
     public function deleteMessage(Request $request, int $chatId, int $messageId)
     {
         $chat = Chat::find($chatId);
@@ -84,18 +86,7 @@ class ChatController extends Controller
         return $this->success('', 204);
     }
 
-    // public function getChats(Request $request)
-    // {
-    //     $user = $request->user();
-
-    //     if($user->user_type_id == 1)
-    //         $chats = Chat::where('executor_id', $user->id)->get()->all();
-    //     else if($user->user_type_id == 2)
-    //         $chats = Chat::where('customer_id', $user->id)->get()->all();
-
-    //     return $this->success(ChatResource::collection($chats));
-    // }
-
+    //Получение сообщений чата
     public function getChatMessages(Request $request, int $chatId)
     {
         $chat = Chat::find($chatId);
@@ -110,6 +101,8 @@ class ChatController extends Controller
 
         return $this->success(MessageResource::collection($messages));
     }
+
+    //Получение чатов по задаче
     public function getChatsByTask(Request $request, int $taskId)
     {
         $task = Task::find($taskId);
@@ -121,6 +114,8 @@ class ChatController extends Controller
 
         return $this->success(ChatResource::collection($task->chats));
     }
+
+    //Получение чатов исполнителя
     public function getChats(Request $request)
     {
         $user = $request->user();

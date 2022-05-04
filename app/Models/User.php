@@ -52,11 +52,11 @@ class User extends Authenticatable
     }
     public function aboutExecutorReviews()
     {
-        return $this->hasMany(Review::class, 'executor_id');
+        return $this->hasMany(Review::class, 'executor_id')->where('author_id', '!=', $this->id);;
     }
     public function aboutCustomerReviews()
     {
-        return $this->hasMany(Review::class, 'customer_id');
+        return $this->hasMany(Review::class, 'customer_id')->where('author_id', '!=', $this->id);
     }
     public function ownerReviews()
     {

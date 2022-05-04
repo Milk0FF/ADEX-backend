@@ -19,6 +19,7 @@ class ReviewResource extends JsonResource
             'comment'       => $this->comment,
             'score'         => $this->scoreType->name,
             'task'          => new TaskResource($this->task),
+            'author'        => new UserResource($this->author),
             'customer'      => new UserResource($this->customer),
             'executor'      => new UserResource($this->executor),
             'created_at'    => $this->created_at,

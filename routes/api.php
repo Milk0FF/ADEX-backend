@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\UserController;
 
@@ -41,4 +42,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::put('/chat/{chatId}/message/{messageId}', [ChatController::class, 'updateMessage']);
     Route::delete('/chat/{chatId}/message/{messageId}', [ChatController::class, 'deleteMessage']);
     Route::get('/chat/{id}', [ChatController::class, 'getChatMessages']);
+
+    Route::get('/reviews', [ReviewController::class, 'getReviews']);
+    Route::post('/review', [ReviewController::class, 'createReview']);
 });
