@@ -10,6 +10,41 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @OA\Post(
+     *     path="/user/login",
+     *     operationId="doLogin",
+     *     tags={"Auth"},
+     *     summary="Авторизация пользователя",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\RequestBody(
+     *        required=true,
+     *        description = "Заполните поля для авторизации",
+     *        @OA\JsonContent(
+     *           required={"email", "password"},
+     *           @OA\Property(property="email", type="string", format="email", example="user1@mail.ru"),
+     *           @OA\Property(property="password", type="string", format="password", example="qwerty123"),
+     *       ),
+     *     ),
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent()
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Login or password incorrect",
+     *        @OA\JsonContent()
+     *      ),
+     *
+     * )
+     */
+
     //Авторизация пользователя
     public function doLogin(LoginRequest $request)
     {

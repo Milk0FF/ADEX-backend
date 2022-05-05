@@ -8,6 +8,26 @@ use App\Models\CategoryWork;
 
 class CategoryWorkController extends Controller
 {
+    /**
+     * Display the specified resource.
+     *
+     * @OA\Get(
+     *     path="/category-works",
+     *     operationId="getCategoryWorks",
+     *     tags={"Category Works"},
+     *     summary="Получить список категорий рекламы",
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *            mediaType="application/json",
+     *          )
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
+
     //Получение категорий по рекламе
     public function getCategoryWorks()
     {
