@@ -21,6 +21,7 @@ class TaskResource extends JsonResource
             'price'         => $this->price,
             'views'         => $this->views,
             'status'        => $this->status->name,
+            'categories'    => CategoryWorksResource::collection($this->categoryWorks),
             'created_at'    => $this->created_at,
         ];
     }

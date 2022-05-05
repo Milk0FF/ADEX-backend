@@ -28,12 +28,14 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/user/logout', [LoginController::class, 'logout']);
     Route::post('/user/avatar', [UserController::class, 'changeAvatar']);
 
+    Route::get('/tasks', [TaskController::class, 'getTasks']);
     Route::post('/task', [TaskController::class, 'createTask']);
     Route::put('/task/{id}', [TaskController::class, 'updateTask']);
     Route::get('/task/{id}', [TaskController::class, 'getTaskInfo']);
     Route::delete('/task/{id}', [TaskController::class, 'deleteTask']);
     Route::post('/task/{id}/executor', [TaskController::class, 'setExecutor']);
     Route::post('/task/{id}/views', [TaskController::class, 'incrementViews']);
+    Route::post('/task/{id}/status', [TaskController::class, 'setTaskStatus']);
     Route::get('/task/{id}/chats', [ChatController::class, 'getChatsByTask']);
 
     Route::get('/chats', [ChatController::class, 'getChats']);
