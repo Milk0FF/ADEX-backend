@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CategoryWorkController;
 use App\Http\Controllers\Api\ChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
@@ -47,4 +48,6 @@ Route::middleware('auth:sanctum')->group(function (){
 
     Route::get('/reviews', [ReviewController::class, 'getReviews']);
     Route::post('/review', [ReviewController::class, 'createReview']);
+
+    Route::get('/category-works', [CategoryWorkController::class, 'getCategoryWorks']);
 });
