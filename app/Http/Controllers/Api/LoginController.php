@@ -12,16 +12,12 @@ class LoginController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
      *
      * @OA\Post(
      *     path="/user/login",
      *     operationId="doLogin",
      *     tags={"Auth"},
      *     summary="Авторизация пользователя",
-     *     security={
-     *          {"bearer": {}}
-     *     },
      *     @OA\RequestBody(
      *        required=true,
      *        description = "Заполните поля для авторизации",
@@ -34,12 +30,19 @@ class LoginController extends Controller
      *     @OA\Response(
      *        response=200,
      *        description="Successful operation",
-     *        @OA\JsonContent()
+     *        @OA\JsonContent(
+    *           @OA\Property(property="token", type="string", example="3|sGwGZYq5xGMcsrDHh1ewDCGBm630Tg8OPdlbtwNe"),
+    *           @OA\Property(property="user_type", type="int", example="1"),
+     *        ),
      *      ),
      *     @OA\Response(
-     *        response=401,
+     *        response=422,
      *        description="Login or password incorrect",
-     *        @OA\JsonContent()
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Login or password incorrect"),
+     *           ),
+     *        ),
      *      ),
      *
      * )
@@ -50,7 +53,7 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if(!Auth::attempt($credentials))
-            return $this->error('Login or password incorrect', 401);
+            return $this->error('Login or password incorrect', 422);
 
         $user = User::where('email', $credentials['email'])->first();
         $token = $user->createToken('auth')->plainTextToken;
@@ -59,6 +62,32 @@ class LoginController extends Controller
             'user_type' => $user->user_type_id,
         ]);
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @OA\Post(
+     *     path="/user/logout",
+     *     operationId="logout",
+     *     tags={"Auth"},
+     *     summary="Выход из системы пользователя",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *        response=204,
+     *        description="Successful operation",
+     *        @OA\JsonContent(),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+*               @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     * )
+     */
+
     //Выход из системы пользователя
     public function logout(Request $request){
         $authUser = $request->user();

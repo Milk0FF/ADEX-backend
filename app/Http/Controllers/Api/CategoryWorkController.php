@@ -9,8 +9,6 @@ use App\Models\CategoryWork;
 class CategoryWorkController extends Controller
 {
     /**
-     * Display the specified resource.
-     *
      * @OA\Get(
      *     path="/category-works",
      *     operationId="getCategoryWorks",

@@ -10,6 +10,33 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
+     /**
+     *
+     * @OA\Post(
+     *     path="/user/register",
+     *     operationId="doRegister",
+     *     tags={"Auth"},
+     *     summary="Регистрация пользователя",
+     *     @OA\RequestBody(
+     *        required=true,
+     *        description = "Заполните поля для создания чата (user_type: 1 - исполнитель, 2 - заказчик)",
+     *        @OA\JsonContent(
+     *           required={"email", "password", "repeat_password", "user_type"},
+     *           @OA\Property(property="email", format="email", type="string", example="test@test.ru"),
+     *           @OA\Property(property="password", format="password", type="string", example="qwer123ty"),
+     *           @OA\Property(property="repeat_password", format="password", type="string", example="qwer123ty"),
+     *           @OA\Property(property="user_type", type="string", example="1"),
+     *       ),
+     *     ),
+     *     @OA\Response(
+     *        response=204,
+     *        description="Successful operation",
+     *        @OA\JsonContent(),
+     *      ),
+     * )
+     */
+
+
     //Регистрация пользователя
     public function doRegister(RegisterRequest $request)
     {
@@ -23,6 +50,6 @@ class RegisterController extends Controller
         $user->username = 'userreg' . $user->id;
         $user->user_info_id = $userInfo->id;
         $user->save();
-        return $this->success(null, 201);
+        return $this->success('', 201);
     }
 }

@@ -14,6 +14,51 @@ use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
+    /**
+     *
+     * @OA\Post(
+     *     path="/chat",
+     *     operationId="createChat",
+     *     tags={"Chat"},
+     *     summary="Создание чата исполнителем, когда оставляет отклик",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\RequestBody(
+     *        required=true,
+     *        description = "Заполните поля для создания чата",
+     *        @OA\JsonContent(
+     *           required={"customer_id", "task_id", "text"},
+     *           @OA\Property(property="сustomer_id", type="int", example="2"),
+     *           @OA\Property(property="task_id", type="int", example="2"),
+     *           @OA\Property(property="text", type="string", example="Это отклик!"),
+     *       ),
+     *     ),
+     *     @OA\Response(
+     *        response=204,
+     *        description="Successful operation",
+     *        @OA\JsonContent(),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+*               @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=403,
+     *        description="Unautorized.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Unautorized"),
+     *           ),
+     *        ),
+     *      ),
+     *
+     * )
+     */
+
     //Создание чата и добавление отклика пользователя
     public function createChat(CreateChatRequest $request)
     {
@@ -28,6 +73,60 @@ class ChatController extends Controller
 
         return $this->success('', 204);
     }
+
+    /**
+     *
+     * @OA\Post(
+     *     path="/chat/{chatId}/message",
+     *     operationId="createMessage",
+     *     tags={"Chat"},
+     *     summary="Добавление сообщения в чат",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\RequestBody(
+     *        required=true,
+     *        description = "Заполните поля для добавления сообщения в чат",
+     *        @OA\JsonContent(
+     *           required={"text"},
+     *           @OA\Property(property="text", type="string", example="Текст сообщения"),
+     *       ),
+     *     ),
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="id", type="int", example="1"),
+     *           @OA\Property(property="text", type="string", example="Это текст сообщения!"),
+     *           @OA\Property(property="author", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *          @OA\Property(property="chat_id", type="int", example="1"),
+     *          @OA\Property(property="created_at", type="date", example="2021-04-04"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=403,
+     *        description="Unautorized.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Unautorized"),
+     *           ),
+     *        ),
+     *      ),
+     * )
+     */
+
     //Добавление сообщения в чат пользователя
     public function createMessage(CreateAndUpdateMessageRequest $request, int $chatId)
     {
@@ -44,6 +143,57 @@ class ChatController extends Controller
 
         return $this->success(new MessageResource($message));
     }
+
+    /**
+     *
+     * @OA\Put(
+     *     path="/chat/{chatId}/message/{messageId}",
+     *     operationId="updateMessage",
+     *     tags={"Chat"},
+     *     summary="Изменить сообщение чата",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\RequestBody(
+     *        required=true,
+     *        description = "Заполните поля для изменения сообщения чата",
+     *        @OA\JsonContent(
+     *           required={"text"},
+     *           @OA\Property(property="text", type="string", example="Текст сообщения"),
+     *       ),
+     *     ),
+     *     @OA\Response(
+     *        response=204,
+     *        description="Successful operation",
+     *        @OA\JsonContent(),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=404,
+     *        description="Message or chat not found.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Message not found"),
+     *           ),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=403,
+     *        description="Unautorized.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Unautorized"),
+     *           ),
+     *        ),
+     *      ),
+     * )
+     */
 
     //Изменение сообщения из чата пользователя
     public function updateMessage(CreateAndUpdateMessageRequest $request, int $chatId, int $messageId)
@@ -66,6 +216,61 @@ class ChatController extends Controller
         return $this->success('', 204);
     }
 
+    /**
+     *
+     * @OA\Delete(
+     *     path="/chat/{chatId}/message/{messageId}",
+     *     operationId="deleteMessage",
+     *     tags={"Chat"},
+     *     summary="Удалить сообщение из чата",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="id", type="int", example="1"),
+     *           @OA\Property(property="text", type="string", example="Это текст сообщения!"),
+     *           @OA\Property(property="author", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *          @OA\Property(property="chat_id", type="int", example="1"),
+     *          @OA\Property(property="created_at", type="date", example="2021-04-04"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=404,
+     *        description="Message or chat not found.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Message not found"),
+     *           ),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=403,
+     *        description="Unautorized.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Unautorized"),
+     *           ),
+     *        ),
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
     //Удаление сообщения из чата пользователя
     public function deleteMessage(Request $request, int $chatId, int $messageId)
     {
@@ -85,6 +290,60 @@ class ChatController extends Controller
 
         return $this->success('', 204);
     }
+    /**
+     * @OA\Get(
+     *     path="/chat/{chatId}",
+     *     operationId="getChatMessages",
+     *     tags={"Chat"},
+     *     summary="Получить сообщения чата",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="id", type="int", example="1"),
+     *           @OA\Property(property="text", type="string", example="Это текст сообщения!"),
+     *           @OA\Property(property="author", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *          @OA\Property(property="chat_id", type="int", example="1"),
+     *          @OA\Property(property="created_at", type="date", example="2021-04-04"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=404,
+     *        description="Chat not found.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Chat not found"),
+     *           ),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=403,
+     *        description="Unautorized.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Unautorized"),
+     *           ),
+     *        ),
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
 
     //Получение сообщений чата
     public function getChatMessages(Request $request, int $chatId)
@@ -102,6 +361,80 @@ class ChatController extends Controller
         return $this->success(MessageResource::collection($messages));
     }
 
+    /**
+     * Получение чатов по задаче (только для пользователя с типом заказчик)
+     *
+     * @OA\Get(
+     *     path="/task/{taskId}/chats",
+     *     operationId="getChatsByTask",
+     *     tags={"Chat"},
+     *     summary="Получить чаты по задаче",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="id", type="int", example="1"),
+     *           @OA\Property(property="customer", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *          @OA\Property(property="executor", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *
+     *          @OA\Property(property="task", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="name", type="string", example="Создать рекламу"),
+     *             @OA\Property(property="description", type="string", example="Создать рекламу на тему пиар"),
+     *             @OA\Property(property="price", type="int", example="1200"),
+     *             @OA\Property(property="views", type="int", example="15"),
+     *             @OA\Property(property="status", type="string", example="Busy"),
+     *             @OA\Property(property="categories", type="object",
+     *               @OA\Property(property="id", type="int", example="1"),
+     *               @OA\Property(property="name", type="string", example="Video"),
+     *             ),
+     *             @OA\Property(property="created_at", type="date", example="2021-04-04"),
+     *          ),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=404,
+     *        description="Task not found.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Task not found"),
+     *           ),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=403,
+     *        description="Unautorized.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Unautorized"),
+     *           ),
+     *        ),
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
+
     //Получение чатов по задаче
     public function getChatsByTask(Request $request, int $taskId)
     {
@@ -114,6 +447,72 @@ class ChatController extends Controller
 
         return $this->success(ChatResource::collection($task->chats));
     }
+
+    /**
+     * Получение всех чатов (только для пользователя с типом исполнитель)
+     *
+     * @OA\Get(
+     *     path="/chats",
+     *     operationId="getChats",
+     *     tags={"Chat"},
+     *     summary="Получить все чаты",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="id", type="int", example="1"),
+     *
+     *           @OA\Property(property="customer", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *          @OA\Property(property="executor", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *
+     *          @OA\Property(property="task", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="name", type="string", example="Создать рекламу"),
+     *             @OA\Property(property="description", type="string", example="Создать рекламу на тему пиар"),
+     *             @OA\Property(property="price", type="int", example="1200"),
+     *             @OA\Property(property="views", type="int", example="15"),
+     *             @OA\Property(property="status", type="string", example="Busy"),
+     *             @OA\Property(property="categories", type="object",
+     *               @OA\Property(property="id", type="int", example="1"),
+     *               @OA\Property(property="name", type="string", example="Video"),
+     *             ),
+     *             @OA\Property(property="created_at", type="date", example="2021-04-04"),
+     *          ),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=403,
+     *        description="Unautorized.",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Unautorized"),
+     *           ),
+     *        ),
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
 
     //Получение чатов исполнителя
     public function getChats(Request $request)
