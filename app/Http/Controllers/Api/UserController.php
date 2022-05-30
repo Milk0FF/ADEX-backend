@@ -112,11 +112,25 @@ class UserController extends Controller
     {
         $user = $request->user();
         $data = $request->all();
+        $categories = [];
+
         if(isset($data['employment_type'])){
             $data['employment_type_id'] = $data['employment_type'];
             unset($data['employment_type']);
         }
+        if(isset($data['categories'])){
+            $categories = $data['categories'];
+            $user->categoryWorks()->sync($categories);
+            unset($data['categories']);
+        } else if($data['categories'] == null)
+            unset($data['categories']);
+        if(isset($data['email'])){
+            $user->email = $data['email'];
+            $user->save();
+            unset($data['email']);
+        }
         UserInfo::where('id', $user->id)->update($data);
+
         return $this->success('', 204);
     }
 

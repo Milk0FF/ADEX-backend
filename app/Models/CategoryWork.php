@@ -10,6 +10,7 @@ class CategoryWork extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'color',
     ];
     public function users()
     {

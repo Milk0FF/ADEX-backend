@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class CreateReviewRequest extends FormRequest
+class GetUserReviewsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,11 +32,8 @@ class CreateReviewRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment'       => 'required|string',
-            'score_type_id' => 'required|integer|exists:score_types,id',
-            'task_id'       => 'required|integer|exists:tasks,id',
-            'customer_id'   => 'required|integer|exists:users,id',
-            'executor_id'   => 'required|integer|exists:users,id',
+            'user_id'       => 'required|int',
+            'user_type'     => 'required|int',
         ];
     }
 }

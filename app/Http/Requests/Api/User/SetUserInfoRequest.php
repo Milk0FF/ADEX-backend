@@ -35,10 +35,13 @@ class SetUserInfoRequest extends FormRequest
             'firstname' => 'nullable|string',
             'lastname' => 'nullable|string',
             'about' => 'nullable|string',
+            'email' => 'nullable|string|email|unique:users',
             'phone' => 'nullable|integer',
             'city' => 'nullable|string',
             'country' => 'nullable|string',
             'birth_date' => 'nullable|date',
+            'categories' => 'nullable|array',
+            'categories.*' => 'required|integer',
             'employment_type' => 'nullable|integer', //1 - свободен, 2 - занят
         ];
     }

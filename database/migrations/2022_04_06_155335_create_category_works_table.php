@@ -16,6 +16,8 @@ class CreateCategoryWorksTable extends Migration
         Schema::create('category_works', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('color');
+            $table->timestamps();
         });
     }
 

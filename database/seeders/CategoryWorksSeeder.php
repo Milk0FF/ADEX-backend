@@ -8,9 +8,9 @@ use Illuminate\Database\Seeder;
 class CategoryWorksSeeder extends Seeder
 {
     private $categoryWorks = [
-        ['name' => 'Рекламные билборды'],
-        ['name' => 'Реклама в соц.сетях'],
-        ['name' => 'Рекламные видеоролики'],
+        ['name' => 'Рекламные билборды', 'color' => 'green'],
+        ['name' => 'Реклама в соц.сетях', 'color' => 'purple'],
+        ['name' => 'Рекламные видеоролики', 'color' => 'red'],
     ];
     /**
      * Run the database seeds.

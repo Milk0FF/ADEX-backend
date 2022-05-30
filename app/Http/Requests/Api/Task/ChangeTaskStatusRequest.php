@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Api\Task;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class ChangeTaskStatusRequest extends FormRequest
 {
@@ -16,6 +18,12 @@ class ChangeTaskStatusRequest extends FormRequest
         return true;
     }
 
+    public function failedValidation(Validator $validator){
+        throw new HttpResponseException(response()->json([
+            'message' => 'Validation errors',
+            'data'    => $validator->errors(),
+        ], 400));
+    }
     /**
      * Get the validation rules that apply to the request.
      *

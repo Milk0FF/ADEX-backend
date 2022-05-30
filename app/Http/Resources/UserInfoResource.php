@@ -35,13 +35,16 @@ class UserInfoResource extends JsonResource
             'lastname'          => $this->lastname,
             'about'             => $this->about,
             'phone'             => $this->phone,
+            'email'             => $this->user->email,
             'city'              => $this->city,
             'country'           => $this->country,
+            'birth_date'        => $this->birth_date,
             'rating'            => $this->rating,
-            'employment_type'   => $this->employmentType ? $this->employmentType->name : null,
+            'employment_type'   => $this->employmentType ? StatusResource::make($this->employmentType) : null,
             'avatar'            => url($avatar),
             'success_reviews'   => $successReviews,
             'failed_reviews'    => $failedReviews,
+            'categories'        => $this->categoryWorks,
             'created_at'        => $this->created_at,
         ];
     }

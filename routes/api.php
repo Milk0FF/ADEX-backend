@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\Api\PriceController;
+use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\UserController;
 
 /*
@@ -28,9 +30,11 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::delete('/user', [UserController::class, 'deleteUser']);
     Route::post('/user/logout', [LoginController::class, 'logout']);
     Route::post('/user/avatar', [UserController::class, 'changeAvatar']);
+    Route::get('/user/employment-types', [StatusController::class, 'getEmploymentTypes']) ; //добавить
 
     Route::get('/tasks', [TaskController::class, 'getTasks']);
     Route::post('/task', [TaskController::class, 'createTask']);
+
     Route::put('/task/{id}', [TaskController::class, 'updateTask']);
     Route::get('/task/{id}', [TaskController::class, 'getTaskInfo']);
     Route::delete('/task/{id}', [TaskController::class, 'deleteTask']);
@@ -38,6 +42,9 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/task/{id}/views', [TaskController::class, 'incrementViews']);
     Route::post('/task/{id}/status', [TaskController::class, 'setTaskStatus']);
     Route::get('/task/{id}/chats', [ChatController::class, 'getChatsByTask']);
+
+    Route::get('/tasks/prices', [PriceController::class, 'getPrices']); //добавить
+    Route::get('/tasks/statuses', [StatusController::class, 'getTaskStatuses']);//добавить
 
     Route::get('/chats', [ChatController::class, 'getChats']);
     Route::post('/chat', [ChatController::class, 'createChat']);
@@ -47,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('/chat/{id}', [ChatController::class, 'getChatMessages']);
 
     Route::get('/reviews', [ReviewController::class, 'getReviews']);
+    Route::get('/user-reviews', [ReviewController::class, 'getUserReviews']); //добавить
     Route::post('/review', [ReviewController::class, 'createReview']);
 
     Route::get('/category-works', [CategoryWorkController::class, 'getCategoryWorks']);
