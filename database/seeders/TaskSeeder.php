@@ -50,8 +50,8 @@ class TaskSeeder extends Seeder
             'categories' => [1]
         ],
         [
-            'name' => 'Сделать прыгскок',
-            'description' => 'Побрыгскочим сучки',
+            'name' => 'Создать рекламу',
+            'description' => "Реклама элементарная и простая просто сделать рекламу на тему 'Новые вселенные'",
             'price' => 1000.00,
             'views' => 0,
             'executor_id' => null,
@@ -60,8 +60,8 @@ class TaskSeeder extends Seeder
             'categories' => [1, 2, 3]
         ],
         [
-            'name' => 'Порекламим',
-            'description' => 'Давайте рекламить и делать бабки',
+            'name' => 'Подключить рекламу на YouTube',
+            'description' => 'Помогите подключить рекламу на Youtube, слишком сложно и муторно получается',
             'price' => 3000.00,
             'views' => 0,
             'executor_id' => null,

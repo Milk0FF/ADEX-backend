@@ -22,7 +22,7 @@ class ReviewResource extends JsonResource
             'author'        => new UserResource($this->author),
             'customer'      => new UserResource($this->customer),
             'executor'      => new UserResource($this->executor),
-            'created_at'    => $this->created_at,
+            'created_at'    => date('d.m.Y', strtotime($this->created_at)),
         ];
     }
 }
