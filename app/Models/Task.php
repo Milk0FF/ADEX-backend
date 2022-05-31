@@ -12,7 +12,9 @@ class Task extends Model
         'name',
         'description',
         'price',
+        'date_end',
         'customer_id',
+        'executor_id',
         'task_status_id',
     ];
     public function executor()

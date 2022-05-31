@@ -35,6 +35,8 @@ class UpdateTaskRequest extends FormRequest
             'name' => 'nullable',
             'price' => 'nullable|numeric',
             'description' => 'nullable',
+            'status' => 'nullable|int',
+            'date_end' => 'nullable|date',
             'categories' => 'nullable|array',
             'categories.*' => 'integer',
         ];

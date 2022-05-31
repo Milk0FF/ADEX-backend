@@ -19,6 +19,7 @@ class CreateTasksTable extends Migration
             $table->string('description');
             $table->decimal('price', 16, 2)->nullable();
             $table->integer('views')->unsigned()->default(0);
+            $table->date('date_end');
             $table->integer('executor_id')->unsigned()->nullable();
             $table->integer('customer_id')->unsigned();
             $table->string('task_status_id')->default(0);

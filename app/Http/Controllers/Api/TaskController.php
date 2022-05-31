@@ -81,7 +81,7 @@ class TaskController extends Controller
             return $this->error('Unathorized', 403);
 
         $data = $request->validated();
-        $task = Task::create(['name' => $data['name'], 'price' => $data['price'], 'description' => $data['description'], 'customer_id' => $user->id, 'task_status_id' => 1]);
+        $task = Task::create(['name' => $data['name'], 'price' => $data['price'], 'description' => $data['description'], 'date_end' => $data['date_end'], 'customer_id' => $user->id, 'task_status_id' => 1]);
 
         $task->categoryWorks()->attach($data['categories']);
 
@@ -150,6 +150,11 @@ class TaskController extends Controller
         $task = Task::find($taskId);
         if(!$task)
             return $this->error('Task not found', 404);
+
+        if(isset($data['status'])){
+            $data['task_status_id'] = $data['status'];
+            unset($data['status']);
+        }
 
         $task->update($data);
         if(isset($data['categories']))
@@ -269,6 +274,18 @@ class TaskController extends Controller
         $tasks = $query->get();
 
         return $this->success(TaskResource::collection($tasks));
+    }
+
+    //Получение задач заказчика
+    public function getCustomerTasks(Request $request)
+    {
+        $user = $request->user();
+        if($user->user_type_id !== 2)
+            return $this->error('Unathorized', 403);
+
+        $customerTasks = Task::where('customer_id', $user->id)->get();
+
+        return $this->success(TaskResource::collection($customerTasks));
     }
 
 

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Carbon;
 use App\Models\Task;
 use Illuminate\Database\Seeder;
 
@@ -82,6 +83,7 @@ class TaskSeeder extends Seeder
                 'description' => $task['description'],
                 'price' => $task['price'],
                 'views' => $task['views'],
+                'date_end' =>  Carbon::createFromDate(2022, 05, 05),
                 'executor_id' => $task['executor_id'],
                 'customer_id' => $task['customer_id'],
                 'task_status_id' => $task['task_status_id'],

@@ -19,7 +19,7 @@ class MessageResource extends JsonResource
             'text'          => $this->text,
             'author'        => new UserResource($this->author),
             'chat_id'       => $this->chat_id,
-            'created_at'    => $this->created_at,
+            'created_at'    => date('d.m.Y', strtotime($this->created_at)),
         ];
     }
 }

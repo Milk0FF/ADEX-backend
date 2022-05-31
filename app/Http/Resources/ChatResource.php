@@ -19,6 +19,7 @@ class ChatResource extends JsonResource
             'customer'      => new UserResource($this->customer),
             'executor'      => new UserResource($this->executor),
             'task'          => new TaskResource($this->task),
+            'created_at'    => date('d.m.Y', strtotime($this->created_at)),
         ];
     }
 }

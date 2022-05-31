@@ -16,8 +16,9 @@ class UserInfoResource extends JsonResource
     public function toArray($request)
     {
         $avatar = null;
-        if($this->avatar)
-            $avatar = $this->avatar->url;
+        if($this->avatar){
+            $avatar = url($this->avatar->url);
+        }
         $user = $this->user;
         $successReviews = null;
         $failedReviews = null;
@@ -40,11 +41,12 @@ class UserInfoResource extends JsonResource
             'country'           => $this->country,
             'birth_date'        => $this->birth_date,
             'rating'            => $this->rating,
-            'employment_type'   => $this->employmentType ? StatusResource::make($this->employmentType) : null,
-            'avatar'            => url($avatar),
+            'avatar'            => $avatar,
             'success_reviews'   => $successReviews,
             'failed_reviews'    => $failedReviews,
-            'categories'        => $this->categoryWorks,
+            'user_type'         => $user->user_type_id,
+            'employment_type'   => $this->employmentType ? StatusResource::make($this->employmentType) : null,
+            'categories'        => StatusResource::collection($this->user->categoryWorks),
             'created_at'        => $this->created_at,
         ];
     }

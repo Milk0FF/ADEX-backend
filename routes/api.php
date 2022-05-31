@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/user/logout', [LoginController::class, 'logout']);
     Route::post('/user/avatar', [UserController::class, 'changeAvatar']);
     Route::get('/user/employment-types', [StatusController::class, 'getEmploymentTypes']) ; //добавить
+    Route::post('/user/type', [UserController::class, 'changeUserType']) ; //добавить
 
     Route::get('/tasks', [TaskController::class, 'getTasks']);
     Route::post('/task', [TaskController::class, 'createTask']);
@@ -42,6 +43,8 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/task/{id}/views', [TaskController::class, 'incrementViews']);
     Route::post('/task/{id}/status', [TaskController::class, 'setTaskStatus']);
     Route::get('/task/{id}/chats', [ChatController::class, 'getChatsByTask']);
+
+    Route::get('/customer-tasks', [TaskController::class, 'getCustomerTasks']); //добавить
 
     Route::get('/tasks/prices', [PriceController::class, 'getPrices']); //добавить
     Route::get('/tasks/statuses', [StatusController::class, 'getTaskStatuses']);//добавить

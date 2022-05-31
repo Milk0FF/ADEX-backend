@@ -135,8 +135,13 @@ class ChatController extends Controller
         if(!$chat)
             return $this->error('Chat not found', 404);
 
-        if($user->id !== $chat->customer_id || $user->id !== $chat->executor_id)
-            return $this->error('Unautorized', 403);
+        if($user->user_type_id == 1)
+            if($user->id !== $chat->executor_id)
+                return $this->error('Unautorized', 403);
+
+        if($user->user_type_id == 2)
+            if($user->id !== $chat->customer_id)
+                return $this->error('Unautorized', 403);
 
         $data = $request->validated();
         $message = Message::create(['text' => $data['text'], 'author_id' => $user->id, 'chat_id' => $chatId]);
@@ -353,8 +358,14 @@ class ChatController extends Controller
             return $this->error('Chat not found', 404);
 
         $user = $request->user();
-        if($user->id !== $chat->customer_id || $user->id !== $chat->executor_id)
-            return $this->error('Unautorized', 403);
+
+        if($user->user_type_id == 1)
+            if($user->id !== $chat->executor_id)
+                return $this->error('Unautorized', 403);
+
+        if($user->user_type_id == 2)
+            if($user->id !== $chat->customer_id)
+                return $this->error('Unautorized', 403);
 
         $messages = Message::where('chat_id', $chatId)->get()->all();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\ChangeAvatarRequest;
+use App\Http\Requests\Api\User\ChangeUserTypeRequest;
 use App\Http\Requests\Api\User\SetUserInfoRequest;
 use App\Http\Resources\UserInfoResource;
 use App\Models\Media;
@@ -130,6 +131,18 @@ class UserController extends Controller
             unset($data['email']);
         }
         UserInfo::where('id', $user->id)->update($data);
+
+        return $this->success('', 204);
+    }
+
+    //Изменение типа пользователя
+    public function changeUserType(ChangeUserTypeRequest $request)
+    {
+        $user = $request->user();
+        $data = $request->all();
+
+        $user->user_type_id = $data['user_type'];
+        $user->save();
 
         return $this->success('', 204);
     }

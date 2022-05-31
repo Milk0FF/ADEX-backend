@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api\Task;
+namespace App\Http\Requests\Api\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class CreateTaskRequest extends FormRequest
+class ChangeUserTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,7 @@ class CreateTaskRequest extends FormRequest
             'data'    => $validator->errors(),
         ], 400));
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -32,12 +33,7 @@ class CreateTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'price' => 'nullable|numeric',
-            'description' => 'required',
-            'date_end' => 'required|date',
-            'categories' => 'array|required',
-            'categories.*' => 'integer',
+            'user_type' => 'required|int|exists:user_types,id',
         ];
     }
 }

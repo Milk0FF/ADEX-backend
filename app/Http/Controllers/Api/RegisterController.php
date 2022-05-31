@@ -47,6 +47,9 @@ class RegisterController extends Controller
             'user_type_id' => $data['user_type']
         ]);
         $userInfo = UserInfo::create();
+        $userInfo->employment_type_id = 1;
+        $userInfo->save();
+
         $user->username = 'userreg' . $user->id;
         $user->user_info_id = $userInfo->id;
         $user->save();
