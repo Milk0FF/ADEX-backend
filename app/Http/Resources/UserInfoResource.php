@@ -46,7 +46,7 @@ class UserInfoResource extends JsonResource
             'failed_reviews'    => $failedReviews,
             'user_type'         => $user->user_type_id,
             'employment_type'   => $this->employmentType ? StatusResource::make($this->employmentType) : null,
-            'categories'        => StatusResource::collection($this->user->categoryWorks),
+            'categories'        => CategoryWorksResource::collection($this->user->categoryWorks),
             'created_at'        => $this->created_at,
         ];
     }

@@ -8,6 +8,7 @@ use App\Http\Requests\Api\User\ChangeUserTypeRequest;
 use App\Http\Requests\Api\User\SetUserInfoRequest;
 use App\Http\Resources\UserInfoResource;
 use App\Models\Media;
+use App\Models\User;
 use App\Models\UserInfo;
 use App\Services\MediaService;
 use Illuminate\Http\Request;
@@ -218,7 +219,17 @@ class UserController extends Controller
         $userInfo->media_id = $newAvatar->id;
         $userInfo->save();
 
-        return $this->success(['image' => url($newAvatar->url)]);
+        return $this->success(['avatar' => url($newAvatar->url)]);
     }
+
+    //Получение информации о пользователе по имени пользователя
+    public function getUserInfoByUsername($username)
+    {
+        $user = User::where('username', $username)->first();
+        if(!$user)
+            return $this->error('User not found', 404);
+        return $this->success(new UserInfoResource($user->userInfo));
+    }
+
 
 }

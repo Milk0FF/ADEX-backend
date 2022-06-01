@@ -53,6 +53,12 @@ class RegisterController extends Controller
         $user->username = 'userreg' . $user->id;
         $user->user_info_id = $userInfo->id;
         $user->save();
-        return $this->success('', 201);
+
+        $token = $user->createToken('auth')->plainTextToken;
+
+        return $this->success([
+            'token' => $token,
+            'user_type' => $user->user_type_id,
+        ], 201);
     }
 }

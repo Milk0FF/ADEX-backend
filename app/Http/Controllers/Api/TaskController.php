@@ -262,8 +262,16 @@ class TaskController extends Controller
     public function getTasks(GetTasksRequest $request)
     {
         $data = $request->validated();
+        // $user = $request->user();
+        // // $task = Task::find(6);
+        // // return $this->success($task->chats);
+
         $query = Task::where('task_status_id', 1);
 
+        // $query->where('customer_id', '!=', $user->id);
+        // $query->whereHas('chats', function($q) use ($user){
+        //     $q->where('chats.executor_id', '!=', $user->id);
+        // });
         if(isset($data['categories']))
             $query->whereHas('categoryWorks', function($q) use ($data){
                 $q->whereIn('category_works.id', $data['categories']);
