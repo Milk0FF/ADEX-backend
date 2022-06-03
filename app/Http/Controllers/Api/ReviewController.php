@@ -6,8 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Review\CreateReviewRequest;
 use App\Http\Requests\Api\Review\GetUserReviewsRequest;
 use App\Http\Resources\ReviewResource;
+use App\Http\Resources\StatusResource;
+use App\Models\Chat;
 use App\Models\Review;
+use App\Models\ScoreType;
 use App\Models\Task;
+use App\Models\User;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -201,13 +206,44 @@ class ReviewController extends Controller
     {
         $user = $request->user();
         $data = $request->validated();
+
         $task = Task::find($data['task_id']);
 
         if($task->task_status_id == 5 || $task->task_status_id == 6){
             $review = Review::create(['comment' => $data['comment'], 'score_type_id' => $data['score_type_id'], 'task_id' => $data['task_id'], 'author_id' => $user->id, 'customer_id' => $data['customer_id'], 'executor_id' => $data['executor_id']]);
+            $chat = Chat::where('executor_id', $data['executor_id'])->where('customer_id', $data['customer_id'])->where('task_id', $task->id)->first();
+            $currentUserId = 0;
+
+            if($user->id == $task->customer_id)
+                $currentUserId = $task->executor_id;
+            else if($user->id == $task->executor_id)
+                $currentUserId = $task->customer_id;
+
+            $currentUser = UserInfo::find($currentUserId);
+
+            if($data['score_type_id'] == 1){
+                $currentUser->rating += 1;
+            } else if($data['score_type_id'] == 2) {
+                if($currentUser->rating != 0)
+                    $currentUser->rating -= 1;
+            }
+            $currentUser->save();
+
+            if($user->id == $task->executor_id)
+                $chat->isExecutorReviewAdded = true;
+            if($user->id == $task->customer_id)
+                $chat->isCustomerReviewAdded = true;
+
+            $chat->save();
+
             return $this->success(new ReviewResource($review));
         }
 
         return $this->error('Invalid task status');
+    }
+
+    public function getScoreTypes(){
+        $scoreTypes = ScoreType::all();
+        return $this->success(StatusResource::collection($scoreTypes));
     }
 }

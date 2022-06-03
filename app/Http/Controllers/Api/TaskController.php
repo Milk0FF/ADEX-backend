@@ -9,6 +9,7 @@ use App\Http\Requests\Api\Task\GetTasksRequest;
 use App\Http\Requests\Api\Task\SetExecutorRequest;
 use App\Http\Requests\Api\Task\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
+use App\Models\Chat;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -291,7 +292,7 @@ class TaskController extends Controller
         if($user->user_type_id !== 2)
             return $this->error('Unathorized', 403);
 
-        $customerTasks = Task::where('customer_id', $user->id)->get();
+        $customerTasks = Task::where('customer_id', $user->id)->where('task_status_id', '!=', 2)->where('task_status_id', '!=', 7)->get();
 
         return $this->success(TaskResource::collection($customerTasks));
     }
@@ -368,7 +369,7 @@ class TaskController extends Controller
      *     path="/task/{taskId}/status",
      *     operationId="setTaskStatus",
      *     tags={"Task"},
-     *     summary="Изменить статус задачи",
+     *     summary="Изменить статус задачи, а также отфильтровать список чатов, если передан параметр executor_id",
      *     security={
      *          {"bearer": {}}
      *     },
@@ -415,8 +416,13 @@ class TaskController extends Controller
             return $this->error('Task not found', 404);
 
         $user = $request->user();
-        if($task->executor_id == $user->id || $task->customer_id == $user->id){
+        if($task->customer_id == $user->id && $user->user_type_id == 2){
             $data = $request->validated();
+            if(isset($data['executor_id'])){
+                $chats = Chat::where('customer_id', $user->id)->where('executor_id', '!=', $data['executor_id'])->get();
+                foreach($chats as $chat)
+                    $chat->delete();
+            }
 
             $task->task_status_id = $data['task_status'];
             $task->save();
@@ -486,6 +492,24 @@ class TaskController extends Controller
 
         $data = $request->validated();
         $task->executor_id = $data['executor_id'];
+        $task->save();
+
+        return $this->success('', 204);
+
+    }
+
+    //Удаление исполнителя из задачи
+    public function unsetExecutor(Request $request, int $taskId)
+    {
+        $user = $request->user();
+        if($user->user_type_id !== 2)
+            return $this->error('Unathorized', 403);
+
+        $task = Task::find($taskId);
+        if(!$task)
+            return $this->error('Task not found', 404);
+
+        $task->executor_id = null;
         $task->save();
 
         return $this->success('', 204);

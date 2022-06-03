@@ -17,6 +17,8 @@ class CreateChatsTable extends Migration
             $table->id();
             $table->integer('customer_id')->unsigned();
             $table->integer('executor_id')->unsigned();
+            $table->boolean('isExecutorReviewAdded')->default(false);
+            $table->boolean('isCustomerReviewAdded')->default(false);
             $table->integer('task_id')->unsigned();
             $table->timestamps();
         });

@@ -14,17 +14,20 @@ class TaskResource extends JsonResource
      */
     public function toArray($request)
     {
+        // $countDateend
         return [
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'description'   => $this->description,
-            'price'         => $this->price,
-            'views'         => $this->views,
-            'status'        => $this->status,
-            'date_end'      => $this->date_end,
-            'categories'    => CategoryWorksResource::collection($this->categoryWorks),
-            'customer_id'   => $this->customer->id,
-            'created_at'    => $this->created_at,
+            'id'                => $this->id,
+            'name'              => $this->name,
+            'description'       => $this->description,
+            'price'             => $this->price,
+            'views'             => $this->views,
+            'status'            => $this->status,
+            'date_end'          => $this->date_end,
+            // 'count_date_end'    => $this->date_end,
+            'categories'        => CategoryWorksResource::collection($this->categoryWorks),
+            'customer_id'       => $this->customer_id,
+            'executor_id'       => $this->executor_id,
+            'created_at'        => $this->created_at,
         ];
     }
 }

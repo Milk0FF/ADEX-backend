@@ -31,7 +31,6 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::delete('/user', [UserController::class, 'deleteUser']);
     Route::post('/user/logout', [LoginController::class, 'logout']);
     Route::post('/user/avatar', [UserController::class, 'changeAvatar']);
-    Route::get('/user/employment-types', [StatusController::class, 'getEmploymentTypes']) ; //добавить
     Route::post('/user/type', [UserController::class, 'changeUserType']) ; //добавить
 
     Route::get('/tasks', [TaskController::class, 'getTasks']);
@@ -41,8 +40,9 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('/task/{id}', [TaskController::class, 'getTaskInfo']);
     Route::delete('/task/{id}', [TaskController::class, 'deleteTask']);
     Route::post('/task/{id}/executor', [TaskController::class, 'setExecutor']);
+    Route::post('/task/{id}/delete-executor', [TaskController::class, 'unsetExecutor']); //Добавить
     Route::post('/task/{id}/views', [TaskController::class, 'incrementViews']);
-    Route::post('/task/{id}/status', [TaskController::class, 'setTaskStatus']);
+    Route::post('/task/{id}/status', [TaskController::class, 'setTaskStatus']); //обновить
     Route::get('/task/{id}/chats', [ChatController::class, 'getChatsByTask']);
 
     Route::get('/customer-tasks', [TaskController::class, 'getCustomerTasks']); //добавить
@@ -59,7 +59,9 @@ Route::middleware('auth:sanctum')->group(function (){
 
     Route::get('/reviews', [ReviewController::class, 'getReviews']);
     Route::get('/user-reviews', [ReviewController::class, 'getUserReviews']); //добавить
-    Route::post('/review', [ReviewController::class, 'createReview']);
+    Route::post('/review', [ReviewController::class, 'createReview']); //обновить
 
+    Route::get('/score-types', [ReviewController::class, 'getScoreTypes']); //добавить
+    Route::get('/employment-types', [StatusController::class, 'getEmploymentTypes']) ; //добавить
     Route::get('/category-works', [CategoryWorkController::class, 'getCategoryWorks']);
 });

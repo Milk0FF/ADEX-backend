@@ -32,7 +32,8 @@ class ChangeTaskStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'task_status' => 'required|integer|exists:task_statuses,id'
+            'task_status' => 'required|integer|exists:task_statuses,id',
+            'executor_id' => 'nullable|integer|exists:users,id'
         ];
     }
 }

@@ -15,11 +15,13 @@ class ChatResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'            => $this->id,
-            'customer'      => new UserResource($this->customer),
-            'executor'      => new UserResource($this->executor),
-            'task'          => new TaskResource($this->task),
-            'created_at'    => date('d.m.Y', strtotime($this->created_at)),
+            'id'                    => $this->id,
+            'customer'              => new UserResource($this->customer),
+            'executor'              => new UserResource($this->executor),
+            'task'                  => new TaskResource($this->task),
+            'isExecutorReviewAdded' => $this->isExecutorReviewAdded,
+            'isCustomerReviewAdded' => $this->isCustomerReviewAdded,
+            'created_at'            => date('d.m.Y', strtotime($this->created_at)),
         ];
     }
 }
