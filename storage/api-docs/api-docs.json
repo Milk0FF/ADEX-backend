@@ -1049,6 +1049,59 @@
                 ]
             }
         },
+        "/tasks/prices": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Получение максимальной и минимальной цены",
+                "description": "Получение максимальной и минимальной цены по задачам",
+                "operationId": "getPrices",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "min_price": {
+                                            "type": "integer",
+                                            "example": "10000"
+                                        },
+                                        "max_price": {
+                                            "type": "integer",
+                                            "example": "40000"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/user/register": {
             "post": {
                 "tags": [
@@ -1298,6 +1351,199 @@
                 ]
             }
         },
+        "/user-reviews": {
+            "get": {
+                "tags": [
+                    "Reviews"
+                ],
+                "summary": "Получение отзывов о конкретном пользователе",
+                "operationId": "getUserReviews",
+                "requestBody": {
+                    "description": "Заполните поля для получения отзывов",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "user_type": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "comment": {
+                                            "type": "string",
+                                            "example": "Это лучший заказчик с которым я работал!"
+                                        },
+                                        "score": {
+                                            "type": "string",
+                                            "example": "Положительно"
+                                        },
+                                        "task": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Создать рекламу"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Создать рекламу на тему пиар"
+                                                },
+                                                "price": {
+                                                    "type": "integer",
+                                                    "example": "1200"
+                                                },
+                                                "views": {
+                                                    "type": "integer",
+                                                    "example": "15"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "Busy"
+                                                },
+                                                "categories": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": "1"
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Video"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2021-04-04"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "author": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "userreg1"
+                                                },
+                                                "firstname": {
+                                                    "type": "string",
+                                                    "example": "Ivan"
+                                                },
+                                                "lastname": {
+                                                    "type": "string",
+                                                    "example": "Ivanovich"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "customer": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "userreg1"
+                                                },
+                                                "firstname": {
+                                                    "type": "string",
+                                                    "example": "Ivan"
+                                                },
+                                                "lastname": {
+                                                    "type": "string",
+                                                    "example": "Ivanovich"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "executor": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "userreg1"
+                                                },
+                                                "firstname": {
+                                                    "type": "string",
+                                                    "example": "Ivan"
+                                                },
+                                                "lastname": {
+                                                    "type": "string",
+                                                    "example": "Ivanovich"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2021-04-04"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/review": {
             "post": {
                 "tags": [
@@ -1515,6 +1761,165 @@
                                                 }
                                             },
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/score-types": {
+            "get": {
+                "tags": [
+                    "Reviews"
+                ],
+                "summary": "Получение типов оценки для отзывов",
+                "description": "Получение типов оценки для отзывов",
+                "operationId": "getScoreTypes",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "integer",
+                                            "example": "Status"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/employment-types": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Получение типов занятости",
+                "description": "Получение типов занятости",
+                "operationId": "getEmploymentTypes",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "integer",
+                                            "example": "Status"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/tasks/statuses": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Получение статусов задачи",
+                "description": "Получение статусов задачи",
+                "operationId": "getTaskStatuses",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "integer",
+                                            "example": "Status"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
                                         }
                                     },
                                     "type": "object"
@@ -1764,7 +2169,7 @@
                                             "properties": {
                                                 "message": {
                                                     "type": "string",
-                                                    "example": "Unautorized"
+                                                    "example": "Task not found"
                                                 }
                                             },
                                             "type": "object"
@@ -2065,14 +2470,139 @@
                 ]
             }
         },
+        "/customer-tasks": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Получить текущие задачи заказчика",
+                "description": "Получить текущие задачи заказчика ( доступно только для пользователя с типом заказчик)",
+                "operationId": "getCustomerTasks",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Создать рекламу"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Создать рекламу на тему пиар"
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "example": "1200"
+                                        },
+                                        "views": {
+                                            "type": "integer",
+                                            "example": "15"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Busy"
+                                        },
+                                        "categories": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Video"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2021-04-04"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unathorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unathorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/task/{taskId}/status": {
             "post": {
                 "tags": [
                     "Task"
                 ],
-                "summary": "Изменить статус задачи",
+                "summary": "Изменить статус задачи, а также отфильтровать список чатов, если передан параметр executor_id",
                 "description": "Изменить статус задачи ( доступно только для пользователя с типом заказчик)",
                 "operationId": "setTaskStatus",
+                "requestBody": {
+                    "description": "Заполните поля для изменения статуса задачи",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "task_status_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "executor_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "204": {
                         "description": "Successful operation",
@@ -2156,6 +2686,89 @@
                 "summary": "Изменить исполнителя задачи",
                 "description": "Изменить исполнителя задачи ( доступно только для пользователя с типом заказчик)",
                 "operationId": "setExecutor",
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Task not found"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unautorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Unautorized"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/task/{taskId}/delete-executor": {
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Удалить исполнителя из задачи",
+                "description": "Удаление исполнителя из задачи ( доступно только для пользователя с типом заказчик)",
+                "operationId": "unsetExecutor",
                 "responses": {
                     "204": {
                         "description": "Successful operation",
@@ -2355,6 +2968,10 @@
                                             "type": "string",
                                             "example": "Россия"
                                         },
+                                        "birth_date": {
+                                            "type": "string",
+                                            "example": "06.01.1999"
+                                        },
                                         "rating": {
                                             "type": "string",
                                             "example": "Россия"
@@ -2368,12 +2985,33 @@
                                             "example": "https::/127.0.0.1/storage/123.png"
                                         },
                                         "success_reviews": {
-                                            "type": "string",
+                                            "type": "integer",
                                             "example": "5"
                                         },
                                         "failed_reviews": {
-                                            "type": "string",
+                                            "type": "integer",
                                             "example": "2"
+                                        },
+                                        "categories": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Video"
+                                                },
+                                                "color": {
+                                                    "type": "string",
+                                                    "example": "Red"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "user_type": {
+                                            "type": "integer",
+                                            "example": "1"
                                         },
                                         "created_at": {
                                             "type": "string",
@@ -2507,6 +3145,80 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/type": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Изменить тип пользователя (исполнитель, заказчик)",
+                "operationId": "changeUsertype",
+                "requestBody": {
+                    "description": "Заполните поля для изменения типа пользователя",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "user_type": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -2549,6 +3261,165 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Failed change user avatar"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/{username}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Получить личную информацию пользователя",
+                "operationId": "getUserInfoByUsername",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "firstname": {
+                                            "type": "string",
+                                            "example": "Ivan"
+                                        },
+                                        "lastname": {
+                                            "type": "string",
+                                            "example": "Ivan"
+                                        },
+                                        "about": {
+                                            "type": "string",
+                                            "example": "Я пользователь биржы ADEX"
+                                        },
+                                        "phone": {
+                                            "type": "integer",
+                                            "example": "79549765434"
+                                        },
+                                        "city": {
+                                            "type": "string",
+                                            "example": "Москва"
+                                        },
+                                        "country": {
+                                            "type": "string",
+                                            "example": "Россия"
+                                        },
+                                        "birth_date": {
+                                            "type": "string",
+                                            "example": "06.01.1999"
+                                        },
+                                        "rating": {
+                                            "type": "string",
+                                            "example": "Россия"
+                                        },
+                                        "employment_type": {
+                                            "type": "string",
+                                            "example": "Россия"
+                                        },
+                                        "avatar": {
+                                            "type": "string",
+                                            "example": "https::/127.0.0.1/storage/123.png"
+                                        },
+                                        "success_reviews": {
+                                            "type": "integer",
+                                            "example": "5"
+                                        },
+                                        "failed_reviews": {
+                                            "type": "integer",
+                                            "example": "2"
+                                        },
+                                        "categories": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Video"
+                                                },
+                                                "color": {
+                                                    "type": "string",
+                                                    "example": "Red"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "user_type": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2021-04-04"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "User not found"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"

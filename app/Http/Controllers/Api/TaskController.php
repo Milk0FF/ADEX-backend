@@ -202,7 +202,7 @@ class TaskController extends Controller
      *        description="Task not found",
      *        @OA\JsonContent(
      *           @OA\Property(property="errors", type="object",
-     *              @OA\Property(property="message", type="string", example="Unautorized"),
+     *              @OA\Property(property="message", type="string", example="Task not found"),
      *           ),
      *        ),
      *      ),
@@ -282,6 +282,53 @@ class TaskController extends Controller
         return $this->success(TaskResource::collection($tasks));
     }
 
+    /**
+     *
+     * Получить текущие задачи заказчика ( доступно только для пользователя с типом заказчик)
+     *
+     * @OA\Get(
+     *     path="/customer-tasks",
+     *     operationId="getCustomerTasks",
+     *     tags={"Task"},
+     *     summary="Получить текущие задачи заказчика",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="id", type="int", example="1"),
+     *           @OA\Property(property="name", type="string", example="Создать рекламу"),
+     *           @OA\Property(property="description", type="string", example="Создать рекламу на тему пиар"),
+     *           @OA\Property(property="price", type="int", example="1200"),
+     *           @OA\Property(property="views", type="int", example="15"),
+     *           @OA\Property(property="status", type="string", example="Busy"),
+     *           @OA\Property(property="categories", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="name", type="string", example="Video"),
+     *           ),
+     *           @OA\Property(property="created_at", type="date", example="2021-04-04"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=403,
+     *        description="Unathorized",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unathorized"),
+     *        ),
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
     //Получение задач заказчика
     public function getCustomerTasks(Request $request)
     {
@@ -370,6 +417,15 @@ class TaskController extends Controller
      *     security={
      *          {"bearer": {}}
      *     },
+     *     @OA\RequestBody(
+     *        required=true,
+     *        description = "Заполните поля для изменения статуса задачи",
+     *        @OA\JsonContent(
+     *           required={ },
+     *           @OA\Property(property="task_status_id", type="int", example="1"),
+     *           @OA\Property(property="executor_id", type="int", example="1"),
+     *       ),
+     *     ),
      *     @OA\Response(
      *        response=204,
      *        description="Successful operation",
@@ -494,6 +550,53 @@ class TaskController extends Controller
         return $this->success('', 204);
 
     }
+
+    /**
+     *
+     * Удаление исполнителя из задачи ( доступно только для пользователя с типом заказчик)
+     *
+     * @OA\Post(
+     *     path="/task/{taskId}/delete-executor",
+     *     operationId="unsetExecutor",
+     *     tags={"Task"},
+     *     summary="Удалить исполнителя из задачи",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *        response=204,
+     *        description="Successful operation",
+     *        @OA\JsonContent(),
+     *      ),
+     *     @OA\Response(
+     *        response=404,
+     *        description="Task not found",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Task not found"),
+     *           ),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=403,
+     *        description="Unautorized",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="Unautorized"),
+     *           ),
+     *        ),
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
 
     //Удаление исполнителя из задачи
     public function unsetExecutor(Request $request, int $taskId)

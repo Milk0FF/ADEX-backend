@@ -43,11 +43,18 @@ class UserController extends Controller
      *           @OA\Property(property="phone", type="int", example="79549765434"),
      *           @OA\Property(property="city", type="string", example="Москва"),
      *           @OA\Property(property="country", type="string", example="Россия"),
+     *           @OA\Property(property="birth_date", type="string", example="06.01.1999"),
      *           @OA\Property(property="rating", type="string", example="Россия"),
      *           @OA\Property(property="employment_type", type="string", example="Россия"),
      *           @OA\Property(property="avatar", type="string", example="https::/127.0.0.1/storage/123.png"),
-     *           @OA\Property(property="success_reviews", type="string", example="5"),
-     *           @OA\Property(property="failed_reviews", type="string", example="2"),
+     *           @OA\Property(property="success_reviews", type="int", example="5"),
+     *           @OA\Property(property="failed_reviews", type="int", example="2"),
+     *           @OA\Property(property="categories", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="name", type="string", example="Video"),
+     *             @OA\Property(property="color", type="string", example="Red"),
+     *           ),
+     *           @OA\Property(property="user_type", type="int", example="1"),
      *           @OA\Property(property="created_at", type="date", example="2021-04-04"),
      *        ),
      *      ),
@@ -136,6 +143,38 @@ class UserController extends Controller
         return $this->success('', 204);
     }
 
+    /**
+     *
+     * @OA\Post(
+     *     path="/user/type",
+     *     operationId="changeUsertype",
+     *     tags={"User"},
+     *     summary="Изменить тип пользователя (исполнитель, заказчик)",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\RequestBody(
+     *        required=true,
+     *        description = "Заполните поля для изменения типа пользователя",
+     *        @OA\JsonContent(
+     *           required={ },
+     *           @OA\Property(property="user_type", type="int", example="1"),
+     *       ),
+     *     ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=204,
+     *        description="Successful operation",
+     *        @OA\JsonContent(),
+     *      ),
+     * )
+     */
     //Изменение типа пользователя
     public function changeUserType(ChangeUserTypeRequest $request)
     {
@@ -162,6 +201,13 @@ class UserController extends Controller
      *        response=204,
      *        description="Successful operation",
      *        @OA\JsonContent(),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
      *      ),
      * )
      */
@@ -200,6 +246,13 @@ class UserController extends Controller
      *          @OA\Property(property="message", type="string", example="Failed change user avatar"),
      *        ),
      *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
      * )
      */
 
@@ -221,6 +274,63 @@ class UserController extends Controller
 
         return $this->success(['avatar' => url($newAvatar->url)]);
     }
+
+    /**
+     *
+     * @OA\Get(
+     *     path="/user/{username}",
+     *     operationId="getUserInfoByUsername",
+     *     tags={"User"},
+     *     summary="Получить личную информацию пользователя",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="id", type="int", example="1"),
+     *           @OA\Property(property="firstname", type="string", example="Ivan"),
+     *           @OA\Property(property="lastname", type="string", example="Ivan"),
+     *           @OA\Property(property="about", type="string", example="Я пользователь биржы ADEX"),
+     *           @OA\Property(property="phone", type="int", example="79549765434"),
+     *           @OA\Property(property="city", type="string", example="Москва"),
+     *           @OA\Property(property="country", type="string", example="Россия"),
+     *           @OA\Property(property="birth_date", type="string", example="06.01.1999"),
+     *           @OA\Property(property="rating", type="string", example="Россия"),
+     *           @OA\Property(property="employment_type", type="string", example="Россия"),
+     *           @OA\Property(property="avatar", type="string", example="https::/127.0.0.1/storage/123.png"),
+     *           @OA\Property(property="success_reviews", type="int", example="5"),
+     *           @OA\Property(property="failed_reviews", type="int", example="2"),
+     *           @OA\Property(property="categories", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="name", type="string", example="Video"),
+     *             @OA\Property(property="color", type="string", example="Red"),
+     *           ),
+     *           @OA\Property(property="user_type", type="int", example="1"),
+     *           @OA\Property(property="created_at", type="date", example="2021-04-04"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=404,
+     *        description="User not found",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="message", type="string", example="User not found"),
+     *           ),
+     *        ),
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
 
     //Получение информации о пользователе по имени пользователя
     public function getUserInfoByUsername($username)

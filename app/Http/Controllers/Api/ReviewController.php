@@ -105,6 +105,79 @@ class ReviewController extends Controller
         return $this->success(ReviewResource::collection($reviews));
     }
 
+    /**
+     *
+     * @OA\Get(
+     *     path="/user-reviews",
+     *     operationId="getUserReviews",
+     *     tags={"Reviews"},
+     *     summary="Получение отзывов о конкретном пользователе",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\RequestBody(
+     *        required=true,
+     *        description = "Заполните поля для получения отзывов",
+     *        @OA\JsonContent(
+     *           required={ },
+     *           @OA\Property(property="user_id", type="int", example="1"),
+     *           @OA\Property(property="user_type", type="int", example="1"),
+     *       ),
+     *     ),
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="id", type="int", example="1"),
+     *           @OA\Property(property="comment", type="string", example="Это лучший заказчик с которым я работал!"),
+     *           @OA\Property(property="score", type="string", example="Положительно"),
+     *
+     *           @OA\Property(property="task", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="name", type="string", example="Создать рекламу"),
+     *             @OA\Property(property="description", type="string", example="Создать рекламу на тему пиар"),
+     *             @OA\Property(property="price", type="int", example="1200"),
+     *             @OA\Property(property="views", type="int", example="15"),
+     *             @OA\Property(property="status", type="string", example="Busy"),
+     *             @OA\Property(property="categories", type="object",
+     *               @OA\Property(property="id", type="int", example="1"),
+     *               @OA\Property(property="name", type="string", example="Video"),
+     *             ),
+     *             @OA\Property(property="created_at", type="date", example="2021-04-04"),
+     *          ),
+     *           @OA\Property(property="author", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *
+     *           @OA\Property(property="customer", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *          @OA\Property(property="executor", type="object",
+     *             @OA\Property(property="id", type="int", example="1"),
+     *             @OA\Property(property="username", type="string", example="userreg1"),
+     *             @OA\Property(property="firstname", type="string", example="Ivan"),
+     *             @OA\Property(property="lastname", type="string", example="Ivanovich"),
+     *          ),
+     *          @OA\Property(property="created_at", type="date", example="2021-04-04"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated.",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
 
     public function getUserReviews(GetUserReviewsRequest $request)
     {
@@ -242,6 +315,38 @@ class ReviewController extends Controller
         return $this->error('Invalid task status');
     }
 
+     /**
+     *
+     * Получение типов оценки для отзывов
+     *
+     * @OA\Get(
+     *     path="/score-types",
+     *     operationId="getScoreTypes",
+     *     tags={"Reviews"},
+     *     summary="Получение типов оценки для отзывов",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *        response=200,
+     *        description="Successful operation",
+     *        @OA\JsonContent(
+     *           @OA\Property(property="id", type="int", example="1"),
+     *           @OA\Property(property="name", type="int", example="Status"),
+     *        ),
+     *      ),
+     *     @OA\Response(
+     *        response=401,
+     *        description="Unauthenticated",
+     *        @OA\JsonContent(
+     *          @OA\Property(property="message", type="string", example="Unauthenticated"),
+     *        ),
+     *      ),
+     * )
+     *
+     * @return JsonResponse
+     */
+    //Получение типов оценки
     public function getScoreTypes(){
         $scoreTypes = ScoreType::all();
         return $this->success(StatusResource::collection($scoreTypes));
