@@ -16,7 +16,7 @@ class TaskSeeder extends Seeder
             'views' => 0,
             'executor_id' => 1,
             'customer_id' => 2,
-            'task_status_id' => 3,
+            'task_status_id' => 1,
             'categories' => [2]
         ],
         [
@@ -83,7 +83,7 @@ class TaskSeeder extends Seeder
                 'description' => $task['description'],
                 'price' => $task['price'],
                 'views' => $task['views'],
-                'date_end' =>  Carbon::createFromDate(2022, 05, 05),
+                'date_end' =>  Carbon::createFromDate(2022, 05, 20),
                 'executor_id' => $task['executor_id'],
                 'customer_id' => $task['customer_id'],
                 'task_status_id' => $task['task_status_id'],
