@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\NewMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Chat\CreateAndUpdateMessageRequest;
 use App\Http\Requests\Api\Chat\CreateChatRequest;
@@ -145,6 +146,7 @@ class ChatController extends Controller
 
         $data = $request->validated();
         $message = Message::create(['text' => $data['text'], 'author_id' => $user->id, 'chat_id' => $chatId]);
+        broadcast(new NewMessage($message))->toOthers();
 
         return $this->success(new MessageResource($message));
     }
