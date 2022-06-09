@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TaskResource extends JsonResource
@@ -14,7 +15,7 @@ class TaskResource extends JsonResource
      */
     public function toArray($request)
     {
-        // $countDateend
+        $countDateEnd = Carbon::parse($this->date_end)->diff(Carbon::now())->format('%d');
         return [
             'id'                => $this->id,
             'name'              => $this->name,
@@ -23,7 +24,7 @@ class TaskResource extends JsonResource
             'views'             => $this->views,
             'status'            => $this->status,
             'date_end'          => $this->date_end,
-            // 'count_date_end'    => $this->date_end,
+            'count_date_end'    => $countDateEnd,
             'categories'        => CategoryWorksResource::collection($this->categoryWorks),
             'customer_id'       => $this->customer_id,
             'executor_id'       => $this->executor_id,

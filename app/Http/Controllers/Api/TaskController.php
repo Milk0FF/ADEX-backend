@@ -277,7 +277,7 @@ class TaskController extends Controller
         if(isset($data['price_start']) && isset($data['price_end']))
             $query->whereBetween('price', [$data['price_start'], $data['price_end']]);
 
-        $tasks = $query->get();
+        $tasks = $query->orderBy('id', 'desc')->get();
 
         return $this->success(TaskResource::collection($tasks));
     }
@@ -336,7 +336,8 @@ class TaskController extends Controller
         if($user->user_type_id !== 2)
             return $this->error('Unathorized', 403);
 
-        $customerTasks = Task::where('customer_id', $user->id)->where('task_status_id', '!=', 2)->where('task_status_id', '!=', 7)->get();
+        $customerTasks = Task::where('customer_id', $user->id)->where('task_status_id', '!=', 2)
+                            ->where('task_status_id', '!=', 7)->orderBy('id', 'desc')->get();
 
         return $this->success(TaskResource::collection($customerTasks));
     }

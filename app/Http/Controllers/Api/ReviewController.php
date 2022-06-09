@@ -183,9 +183,9 @@ class ReviewController extends Controller
     {
         $data = $request->validated();
         if($data['user_type'] == 1)
-            $reviews = Review::where('executor_id', '=', $data['user_id'])->where('author_id', '!=', $data['user_id'])->get();
+            $reviews = Review::where('executor_id', '=', $data['user_id'])->where('author_id', '!=', $data['user_id'])->where('is_disable', false)->get();
         else if($data['user_type'] == 2)
-            $reviews = Review::where('customer_id', '=', $data['user_id'])->where('author_id', '!=', $data['user_id'])->get();
+            $reviews = Review::where('customer_id', '=', $data['user_id'])->where('author_id', '!=', $data['user_id'])->where('is_disable', false)->get();
 
         return $this->success(ReviewResource::collection($reviews));
     }
