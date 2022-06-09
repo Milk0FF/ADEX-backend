@@ -22,7 +22,7 @@ class CreateTasksTable extends Migration
             $table->date('date_end');
             $table->integer('executor_id')->unsigned()->nullable();
             $table->integer('customer_id')->unsigned();
-            $table->string('task_status_id')->default(0);
+            $table->integer('task_status_id')->default(0);
             $table->timestamps();
         });
     }

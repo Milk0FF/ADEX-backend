@@ -21,6 +21,7 @@ class CreateReviewsTable extends Migration
             $table->integer('author_id')->unsigned();
             $table->integer('customer_id')->unsigned();
             $table->integer('executor_id')->unsigned();
+            $table->boolean('is_disable')->default(false);
             $table->timestamps();
         });
     }

@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
                 'username' => 'userreg3', 'email' => 'admin@admin.ru', 'password' => Hash::make('admin'), 'user_type_id' => 3
             ],
             'adminInfo' => [
-                'firstName' => null, 'lastname' => null, 'about' => null, 'phone' => null, 'city' => null, 'country' => null, 'birth_date' => null, 'rating' => '0.00', 'employment_type_id' => null ,
+                'firstName' => 'Админ', 'lastname' => 'Админ', 'about' => 'Админ', 'phone' => '77777777777', 'city' => 'Москва', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => '0.00', 'employment_type_id' => 1,
             ],
         ];
 

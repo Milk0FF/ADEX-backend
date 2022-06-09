@@ -39,14 +39,8 @@ class CategoryWorkCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name');
-        CRUD::column('color');
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
+        CRUD::addColumn(['name' => 'name', 'label' => 'Название', 'type' => 'text']);
+        CRUD::addColumn(['name' => 'color', 'label' => 'Цвет', 'type' => 'text']);
     }
 
     /**
@@ -59,14 +53,8 @@ class CategoryWorkCrudController extends CrudController
     {
         CRUD::setValidation(CategoryWorkRequest::class);
 
-        CRUD::field('name');
-        CRUD::field('color');
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
+        CRUD::addField(['name' => 'name', 'label' => 'Название', 'type' => 'text']);
+        CRUD::addField(['name' => 'color', 'label' => 'Цвет', 'type' => 'text']);
     }
 
     /**

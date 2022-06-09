@@ -25,7 +25,8 @@ class CategoryWorkRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required',
+            'color' => 'required'
         ];
     }
 
@@ -49,7 +50,8 @@ class CategoryWorkRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => 'Поле название обязательно для заполнения',
+            'color.required' => 'Поле цвет обязательно для заполнения',
         ];
     }
 }

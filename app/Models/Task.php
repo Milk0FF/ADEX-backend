@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
     protected $fillable = [
         'name',
@@ -24,6 +25,14 @@ class Task extends Model
     public function customer()
     {
         return $this->belongsTo(User::class, 'customer_id');
+    }
+    public function executorInfo()
+    {
+        return $this->belongsTo(UserInfo::class, 'executor_id');
+    }
+    public function customerInfo()
+    {
+        return $this->belongsTo(UserInfo::class, 'customer_id');
     }
     public function status()
     {
