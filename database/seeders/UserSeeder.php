@@ -22,19 +22,47 @@ class UserSeeder extends Seeder
                 'username' => 'userreg1', 'email' => 'executor@executor.ru', 'password' => Hash::make('123456'), 'user_type_id' => 1
             ],
             'executorInfo' => [
-                'firstName' => 'Иван', 'lastname' => 'Исполнитель', 'about' => 'Я лучший исполнитель!', 'phone' => '79549214567', 'city' => 'Самара', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 2.00, 'employment_type_id' => 1
+                'firstName' => 'Иван', 'lastname' => 'Медведев', 'about' => 'Я лучший исполнитель!', 'phone' => '79549214567', 'city' => 'Самара', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 2.00, 'employment_type_id' => 1
             ],
             'customer' => [
                 'username' => 'userreg2', 'email' => 'customer@customer.ru', 'password' => Hash::make('123456'), 'user_type_id' => 2
             ],
             'customerInfo' => [
-                'firstName' => 'Владимир', 'lastname' => 'Заказчик', 'about' => 'Я лучший заказчик!', 'phone' => '79879659493', 'city' => 'Самара', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 4.00, 'employment_type_id' => 1 ,
+                'firstName' => 'Владимир', 'lastname' => 'Иванов', 'about' => 'Я лучший заказчик!', 'phone' => '79879659493', 'city' => 'Самара', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 4.00, 'employment_type_id' => 1 ,
             ],
             'admin' => [
                 'username' => 'userreg3', 'email' => 'admin@admin.ru', 'password' => Hash::make('admin'), 'user_type_id' => 3
             ],
             'adminInfo' => [
                 'firstName' => 'Админ', 'lastname' => 'Админ', 'about' => 'Админ', 'phone' => '77777777777', 'city' => 'Москва', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => '0.00', 'employment_type_id' => 1,
+            ],
+
+            'executor2' => [
+                'username' => 'userreg4', 'email' => 'test@test.ru', 'password' => Hash::make('123456'), 'user_type_id' => 1
+            ],
+            'executorInfo2' => [
+                'firstName' => 'Владимир', 'lastname' => 'Иванов', 'about' => 'Я лучший заказчик!', 'phone' => '79432322332', 'city' => 'Омск', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 10.00, 'employment_type_id' => 1 ,
+            ],
+
+            'customer2' => [
+                'username' => 'userreg5', 'email' => 'customer@customer.ru', 'password' => Hash::make('123456'), 'user_type_id' => 2
+            ],
+            'customerInfo2' => [
+                'firstName' => 'Владимир', 'lastname' => 'Иванов', 'about' => 'Я лучший заказчик!', 'phone' => '79879659493', 'city' => 'Самара', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 4.00, 'employment_type_id' => 1 ,
+            ],
+
+            'executor3' => [
+                'username' => 'userreg4', 'email' => 'customer@customer.ru', 'password' => Hash::make('123456'), 'user_type_id' => 2
+            ],
+            'executorInfo3' => [
+                'firstName' => 'Владимир', 'lastname' => 'Иванов', 'about' => 'Я лучший заказчик!', 'phone' => '79879659493', 'city' => 'Самара', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 4.00, 'employment_type_id' => 1 ,
+            ],
+
+            'customer3' => [
+                'username' => 'userreg6', 'email' => 'customer@customer.ru', 'password' => Hash::make('123456'), 'user_type_id' => 2
+            ],
+            'customerInfo3' => [
+                'firstName' => 'Владимир', 'lastname' => 'Иванов', 'about' => 'Я лучший заказчик!', 'phone' => '79879659493', 'city' => 'Самара', 'country' => 'Россия', 'birth_date' => new DateTime(), 'rating' => 4.00, 'employment_type_id' => 1 ,
             ],
         ];
 
